@@ -1,6 +1,10 @@
 require 'url_datastore'
 
 describe URLDatastore do
+  it 'is a singleton' do
+    expect(described_class).to respond_to(:instance)
+  end
+
   describe '#index' do
     it 'returns index of url'
   end

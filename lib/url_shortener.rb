@@ -5,7 +5,7 @@ class URLShortener
   include BaseConverter
 
   def initialize
-    @url_datastore = URLDatastore.new
+    @url_datastore = URLDatastore.instance
   end
 
   def shorten(url)

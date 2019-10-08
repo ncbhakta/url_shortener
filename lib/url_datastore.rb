@@ -1,4 +1,8 @@
+require 'singleton'
+
 class URLDatastore
+  include Singleton
+
   def index(url)
   end
 

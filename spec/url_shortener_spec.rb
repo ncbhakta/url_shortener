@@ -11,6 +11,7 @@ describe URLShortener do
   let(:url_shortener) { URLShortener.new }
 
   before do
+    Singleton.__init__(URLDatastore)
     allow(URLDatastore).to receive(:new).and_return(mock_url_datastore)
     allow(url_shortener).to receive(:base_10_to_62).with(base10).and_return(base62)
     allow(mock_url_datastore).to receive(:index).with(url).and_return(index)
