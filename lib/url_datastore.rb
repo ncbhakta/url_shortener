@@ -8,6 +8,7 @@ class URLDatastore
   end
 
   def exists?(url)
+    @data.include?(url)
   end
 
   def add(url)

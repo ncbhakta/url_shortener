@@ -34,11 +34,17 @@ describe URLDatastore do
 
   describe '#exists?' do
     context 'when url exists' do
-      it 'is true'
+      it 'is true' do
+        expect(described_class.instance.exists?(urls.last)).to be true
+      end
     end
 
     context 'when url does not exist' do
-      it 'is false'
+      let(:non_existing_url) { "http://url#{num_existing_urls + 1}.io" }
+
+      it 'is false' do
+        expect(described_class.instance.exists?(non_existing_url)).to be false
+      end
     end
   end
 
