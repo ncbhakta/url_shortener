@@ -36,4 +36,29 @@ describe 'App' do
       end
     end
   end
+
+  describe 'GET /:short_url' do
+    before do
+      URLShortener.any_instance.stub(:lengthen).with('/abc123').and_return('http://cathex.io')
+      get '/abc123'
+    end
+
+    describe 'response' do
+      it 'has a 301 status' do
+        expect(last_response.status).to eq(301)
+      end
+
+      it 'redirects to lengthened url' do
+        expect(last_response.header['Location']).to eq('http://cathex.io')
+      end
+
+      describe 'body' do
+        let(:response_body) { JSON.parse(last_response.body) }
+
+        it 'has lengthened url' do
+          expect(response_body['url']).to eq('http://cathex.io')
+        end
+      end
+    end
+  end
 end

@@ -12,3 +12,12 @@ post '/' do
 
   { short_url: short_url, url: url }.to_json
 end
+
+get '/:short_url' do
+  content_type :json
+
+  short_url = "/#{params[:short_url]}"
+  url = URLShortener.new.lengthen(short_url)
+
+  redirect url, 301, { url: url }.to_json
+end
