@@ -11,9 +11,13 @@ describe 'App' do
     Sinatra::Application
   end
 
+  let(:mock_url_shortener) { instance_double(URLShortener) }
+
+  before { allow(URLShortener).to receive(:new).and_return(mock_url_shortener) }
+
   describe 'POST /' do
     before do
-      URLShortener.any_instance.stub(:shorten).with('http://cathex.io').and_return('/abc123')
+      expect(mock_url_shortener).to receive(:shorten).with('http://cathex.io').and_return('/abc123')
       json = { url: 'http://cathex.io' }.to_json
       post('/', json, { 'CONTENT_TYPE' => 'application/json' })
     end
@@ -39,7 +43,7 @@ describe 'App' do
 
   describe 'GET /:short_url' do
     before do
-      URLShortener.any_instance.stub(:lengthen).with('/abc123').and_return('http://cathex.io')
+      expect(mock_url_shortener).to receive(:lengthen).with('/abc123').and_return('http://cathex.io')
       get '/abc123'
     end
 
