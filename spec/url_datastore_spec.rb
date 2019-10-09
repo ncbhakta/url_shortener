@@ -65,4 +65,8 @@ describe URLDatastore do
       end
     end
   end
+
+  describe '#url' do
+    it 'returns the url with the given index'
+  end
 end

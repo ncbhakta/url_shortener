@@ -17,4 +17,7 @@ module BaseConverter
 
     base62
   end
+
+  def base_62_to_10(base64)
+  end
 end

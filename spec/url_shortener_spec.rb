@@ -14,7 +14,9 @@ describe URLShortener do
     Singleton.__init__(URLDatastore)
     allow(URLDatastore).to receive(:new).and_return(mock_url_datastore)
     allow(url_shortener).to receive(:base_10_to_62).with(base10).and_return(base62)
+    allow(url_shortener).to receive(:base_62_to_10).with(base62).and_return(base10)
     allow(mock_url_datastore).to receive(:index).with(url).and_return(index)
+    allow(mock_url_datastore).to receive(:url).with(index).and_return(url)
   end
 
   describe '#shorten' do
@@ -48,10 +50,11 @@ describe URLShortener do
         expect(url_shortener.shorten(url)).to eq(short_url)
       end
     end
-
   end
 
   describe '#lengthen' do
-    it "returns url indexed at base 10 form of short_url"
+    it "returns url indexed at base 10 form of short_url" do
+      expect(url_shortener.lengthen(short_url)).to eq(url)
+    end
   end
 end

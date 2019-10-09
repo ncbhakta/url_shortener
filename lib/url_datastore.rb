@@ -19,6 +19,9 @@ class URLDatastore
     @data << url unless exists?(url)
   end
 
+  def url(index)
+  end
+
   private
 
   def size
