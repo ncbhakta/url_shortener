@@ -3,6 +3,10 @@ require 'singleton'
 class URLDatastore
   include Singleton
 
+  def initialize
+    @data = []
+  end
+
   def index(url)
     @data.index(url)
   end
