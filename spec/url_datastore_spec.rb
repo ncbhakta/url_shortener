@@ -1,15 +1,17 @@
 require 'url_datastore'
 
 describe URLDatastore do
+  let(:url_datastore) { described_class.instance }
   let(:num_existing_urls) { 10 }
 
   let(:urls) do
     (1..num_existing_urls).map { |i| "http://url#{i}.io" }
   end
 
+
   before do
     Singleton.__init__(described_class)
-    described_class.instance.instance_variable_set(:@data, urls)
+    url_datastore.instance_variable_set(:@data, urls)
   end
 
   it 'is a singleton' do
@@ -19,7 +21,7 @@ describe URLDatastore do
   describe '#index' do
     context 'when url exists' do
       it 'returns index of url' do
-        expect(described_class.instance.index(urls.last)).to eq(num_existing_urls - 1)
+        expect(url_datastore.index(urls.last)).to eq(num_existing_urls - 1)
       end
     end
 
@@ -27,7 +29,7 @@ describe URLDatastore do
       let(:non_existing_url) { "http://url#{num_existing_urls + 1}.io" }
 
       it 'returns nil' do
-        expect(described_class.instance.index(non_existing_url)).to be_nil
+        expect(url_datastore.index(non_existing_url)).to be_nil
       end
     end
   end
@@ -35,7 +37,7 @@ describe URLDatastore do
   describe '#exists?' do
     context 'when url exists' do
       it 'is true' do
-        expect(described_class.instance.exists?(urls.last)).to be true
+        expect(url_datastore.exists?(urls.last)).to be true
       end
     end
 
@@ -43,7 +45,7 @@ describe URLDatastore do
       let(:non_existing_url) { "http://url#{num_existing_urls + 1}.io" }
 
       it 'is false' do
-        expect(described_class.instance.exists?(non_existing_url)).to be false
+        expect(url_datastore.exists?(non_existing_url)).to be false
       end
     end
   end
@@ -51,8 +53,8 @@ describe URLDatastore do
   describe '#add' do
     context 'when url is not new' do
       it 'does not store duplicate' do
-        described_class.instance.add(urls.last)
-        expect(described_class.instance.send(:size)).to eq(num_existing_urls)
+        url_datastore.add(urls.last)
+        expect(url_datastore.send(:size)).to eq(num_existing_urls)
       end
     end
 
@@ -60,15 +62,15 @@ describe URLDatastore do
       let(:non_existing_url) { "http://url#{num_existing_urls + 1}.io" }
 
       it 'stores url' do
-        described_class.instance.add(non_existing_url)
-        expect(described_class.instance.index(non_existing_url)).to eq(num_existing_urls)
+        url_datastore.add(non_existing_url)
+        expect(url_datastore.index(non_existing_url)).to eq(num_existing_urls)
       end
     end
   end
 
   describe '#url' do
     it 'returns the url with the given index' do
-      expect(described_class.instance.url(num_existing_urls - 1)).to eq(urls.last)
+      expect(url_datastore.url(num_existing_urls - 1)).to eq(urls.last)
     end
   end
 end
