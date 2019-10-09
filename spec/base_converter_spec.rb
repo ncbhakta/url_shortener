@@ -12,6 +12,9 @@ describe BaseConverter do
   end
 
   describe '#base_62_to_10' do
-    it 'converts base 62 to base 10'
+    it 'converts base 62 to base 10' do
+      expect(subject.base_62_to_10('0')).to eq('0')
+      expect(subject.base_62_to_10('abc123')).to eq('33536566819')
+    end
   end
 end
