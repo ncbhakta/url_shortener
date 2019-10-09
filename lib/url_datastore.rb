@@ -12,5 +12,12 @@ class URLDatastore
   end
 
   def add(url)
+    @data << url unless exists?(url)
+  end
+
+  private
+
+  def size
+    @data.size
   end
 end

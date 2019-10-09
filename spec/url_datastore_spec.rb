@@ -50,11 +50,19 @@ describe URLDatastore do
 
   describe '#add' do
     context 'when url is not new' do
-      it 'does not store duplicate'
+      it 'does not store duplicate' do
+        described_class.instance.add(urls.last)
+        expect(described_class.instance.send(:size)).to eq(num_existing_urls)
+      end
     end
 
     context 'when url is new' do
-      it 'stores url'
+      let(:non_existing_url) { "http://url#{num_existing_urls + 1}.io" }
+
+      it 'stores url' do
+        described_class.instance.add(non_existing_url)
+        expect(described_class.instance.index(non_existing_url)).to eq(num_existing_urls)
+      end
     end
   end
 end
