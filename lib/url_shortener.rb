@@ -1,5 +1,5 @@
-require 'url_datastore'
-require 'base_converter'
+require_relative './url_datastore'
+require_relative './base_converter'
 
 class URLShortener
   include BaseConverter
