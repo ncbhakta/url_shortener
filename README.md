@@ -46,6 +46,10 @@ For example:
 
 `curl -v localhost/abc123`
 
+Please note that your_url should be the full url to ensure consistent short
+urls. For example, use `https://www.website.com` rather than `www.website.com`.
+A future update might remove this inconvenience.
+
 # How to run the test suite
 
 With a docker install, run
