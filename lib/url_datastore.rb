@@ -20,6 +20,7 @@ class URLDatastore
   end
 
   def url(index)
+    @data[index]
   end
 
   private

@@ -67,6 +67,8 @@ describe URLDatastore do
   end
 
   describe '#url' do
-    it 'returns the url with the given index'
+    it 'returns the url with the given index' do
+      expect(described_class.instance.url(num_existing_urls - 1)).to eq(urls.last)
+    end
   end
 end
